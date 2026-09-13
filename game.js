@@ -1,4 +1,4 @@
-// DEADLINE 2099 - build 0.1.0 "FIRST SHIFT"
+// DEADLINE 2099 - build 0.4.3 "MARKER CLEAR"
 // Fan-made browser sequel set in Chicago 2099. No assets - everything procedural.
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
@@ -1560,8 +1560,12 @@ function restoreStage(sv){
     setObjective('VAULT CRACKED - REACH THE BRIDGE', mission.extraction);
   } else {
     beginActIII(); mission.stage = 15; buildVault();
+    mission.target = null;                 // beginActIII aimed at Kiko - clear for free roam
+    el.objDist.textContent = '';
     setObjectiveSilent('FREE ROAM - CHICAGO 2099');
   }
+  // normalize shard flags for any save past the shard stage (older saves stored a count only)
+  if (mission.shardsGot >= 3) mission.shardState = [true, true, true];
   player.hp = sv.hp || 100;
 }
 
